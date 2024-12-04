@@ -187,7 +187,10 @@ def explore_features(features_path, features_list=None):
     else:
         for node in os.listdir(features_path):
             if os.path.isdir(os.path.join(features_path, node)):
-                explore_features(os.path.join(features_path, node), features_list)
+                try:
+                    explore_features(os.path.join(features_path, node), features_list)
+                except PermissionError:
+                    pass
             else:
                 if node.endswith('.feature'):
                     path_feature = os.path.abspath(os.path.join(features_path, node))
